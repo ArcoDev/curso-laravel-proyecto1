@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Receta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RecetaController extends Controller
 {
@@ -34,8 +35,18 @@ class RecetaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $data = request();
+        /* Insertar un registro en la BD con la clase DB
+        crear un fasat (similar a las funciones)*/
+        DB::table('recetas')->insert([
+            'titulo' => $data['titulo']
+        ]);
+        /* dd es similar al var_dump
+        dd($request->all());*/
+
+        //Redireccionar
+        return redirect()->action('RecetaController@index');
     }
 
     /**
