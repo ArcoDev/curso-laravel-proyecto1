@@ -46,7 +46,8 @@ class RecetaController extends Controller
     {   
         //Creando la validacion con el metodo de validate
         $data = $request->validate([
-            'titulo' => 'required|min:6'
+            'titulo' => 'required|min:6',
+            'categoria' => 'required'
         ]);
         /* Insertar un registro en la BD con la clase DB
         crear un fasat (similar a las funciones)*/
