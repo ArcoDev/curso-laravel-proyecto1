@@ -12,8 +12,13 @@
     <h2 class="text-center m-3">Crear nueva receta</h2>
     <div class="row justify-content-center">
         <div class="col-md-10">
-            <form method="POST" action="{{ route('recetas.store') }}" novalidate>
+            <form method="POST"
+                  action="{{ route('recetas.store') }}"
+                  enctype="multipart/form-data"
+                   novalidate
+            >
                 @csrf
+
                 <!--Se agrega el token de seguridad en todos los formularios para permitir el request dentro de los mismos, ya que laravel lo trae integrado  como seguridad -->
                 <div class="form-group">
                     <label for="titulo">Titulo Recetas</label>
@@ -30,6 +35,7 @@
                         </span>
                     @enderror
                 </div>
+
                 <div class="form-group">
                     <label for="categoria">Categorías</label>
                     <select name="categoria"
@@ -49,6 +55,7 @@
                         </span>
                     @enderror
                 </div>
+                
                 <div class="form-group">
                     <label for="preparacion">Preparación</label>
                     <input id="preparacion"

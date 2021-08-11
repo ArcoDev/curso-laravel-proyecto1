@@ -45,25 +45,34 @@ class RecetaController extends Controller
      */
     public function store(Request $request)
     {   
+
+        //Almacenar images en el servidor
+        //dd($request['imagen']->store('uploads-recetas', 'public'));
+
         //Creando la validacion con el metodo de validate
         $data = $request->validate([
             'titulo' => 'required|min:6',
             'categoria' => 'required',
             'preparacion' => 'required',
             'ingredientes' => 'required',
-            //'imagen' => 'required|image|size:1000',
+            'imagen' => 'required|image',
         ]);
-        /* Insertar un registro en la BD con la clase DB
+
+        //optener la ruta de la imagen
+        $ruta_imagen = $request['imagen']->store('uploads-recetas', 'public');
+        
+        /* Insertar un registro en la BD con la clase DB (sin modelo)
         crear un fasat (similar a las funciones)*/
         DB::table('recetas')->insert([
             'titulo' => $data['titulo'],
             'preparacion' => $data['preparacion'],
             'ingredientes' => $data['ingredientes'],
-            'imagen' => 'imagen.png',
+            'imagen' => $ruta_imagen,
             //agregando el helper para saber que usuario esta autenticado y asi relacionarlo en la BD
             'user_id' => Auth::user()->id,
             'categoria_id' => $data['categoria'],
         ]);
+        
         /* dd es similar al var_dump
         dd($request->all());*/
 
