@@ -18,6 +18,7 @@ class CreateRecetasTable extends Migration
             $table->id();
             $table->string('nombre');
             $table->timestamps();
+            $table->engine = "InnoDB";
         });
 
         Schema::create('recetas', function (Blueprint $table) {
@@ -30,6 +31,7 @@ class CreateRecetasTable extends Migration
             $table->foreignID('user_id')->references('id')->on('users')->comment('El usuario que crea la receta');
             $table->foreignID('categoria_id')->index('id')->on('categoria_receta')->comment('La categoria de la receta');
             $table->timestamps();
+            $table->engine = "InnoDB";
         });
     }
 

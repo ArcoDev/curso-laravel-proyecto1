@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Receta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RecetaController extends Controller
@@ -47,12 +48,21 @@ class RecetaController extends Controller
         //Creando la validacion con el metodo de validate
         $data = $request->validate([
             'titulo' => 'required|min:6',
-            'categoria' => 'required'
+            'categoria' => 'required',
+            'preparacion' => 'required',
+            'ingredientes' => 'required',
+            //'imagen' => 'required|image|size:1000',
         ]);
         /* Insertar un registro en la BD con la clase DB
         crear un fasat (similar a las funciones)*/
         DB::table('recetas')->insert([
-            'titulo' => $data['titulo']
+            'titulo' => $data['titulo'],
+            'preparacion' => $data['preparacion'],
+            'ingredientes' => $data['ingredientes'],
+            'imagen' => 'imagen.png',
+            //agregando el helper para saber que usuario esta autenticado y asi relacionarlo en la BD
+            'user_id' => Auth::user()->id,
+            'categoria_id' => $data['categoria'],
         ]);
         /* dd es similar al var_dump
         dd($request->all());*/
