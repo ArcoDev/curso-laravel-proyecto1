@@ -36,7 +36,10 @@ class RecetaController extends Controller
      */
     public function store(Request $request)
     {   
-        $data = request();
+        //Creando la validacion con el metodo de validate
+        $data = $request->validate([
+            'titulo' => 'required|min:6'
+        ]);
         /* Insertar un registro en la BD con la clase DB
         crear un fasat (similar a las funciones)*/
         DB::table('recetas')->insert([

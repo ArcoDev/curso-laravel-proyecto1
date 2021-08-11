@@ -8,7 +8,7 @@
     <h2 class="text-center m-3">Crear nueva receta</h2>
     <div class="row justify-content-center mt-5">
         <div class="col-md-8">
-            <form method="POST" action="{{ route('recetas.store') }}">
+            <form method="POST" action="{{ route('recetas.store') }}" novalidate>
                 @csrf
                 <!--Se agrega el token de seguridad en todos los formularios para permitir el request dentro de los mismos, ya que laravel lo trae integrado  como seguridad -->
                 <div class="form-group">
@@ -16,9 +16,15 @@
                     <input type="text"
                            name="titulo"
                            id="titulo"
-                           class="form-control"
+                           class="form-control @error('titulo') is-invalid @enderror "
                            placeholder="Titulo Receta"
+                           value={{ old('titulo') }}
                     />
+                    @error('titulo')
+                        <span class="invalid-feedback d-block" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btn btn-danger" value="Agregar Receta">
