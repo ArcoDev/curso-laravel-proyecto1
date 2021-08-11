@@ -12,7 +12,7 @@ class RecetaController extends Controller
     public function __construct() {
         $this->middleware('auth');
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -30,7 +30,10 @@ class RecetaController extends Controller
      */
     public function create()
     {
-        return view('recetas.create');
+        //Pasando las categorias de la BD a la vista mediantes los metodos
+        //DB::table('categoria_receta')->get()->pluck('nombre' , 'id')->dd();
+        $categorias = DB::table('categoria_receta')->get()->pluck('nombre' , 'id');
+        return view('recetas.create')->with('categorias', $categorias);
     }
 
     /**
