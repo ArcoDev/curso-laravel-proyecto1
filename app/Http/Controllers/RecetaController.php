@@ -120,7 +120,11 @@ class RecetaController extends Controller
      */
     public function show(Receta $receta)
     {
-        //
+        /* Metodo antiguo para mostrar informacion de la BD
+            $receta = Receta::findOrFail($receta); 
+        */
+        /*Forma actual */
+        return view('recetas.show', compact('receta'));
     }
 
     /**
