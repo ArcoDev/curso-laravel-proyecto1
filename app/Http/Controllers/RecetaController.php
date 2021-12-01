@@ -22,7 +22,15 @@ class RecetaController extends Controller
      */
     public function index()
     {
-        return view('recetas.index');
+        /* Primera forma para mostrar las recetas que se creo el usuario n
+        Auth::user()->recetas->dd(); */
+
+        /* Segunda forma para mostrar las recetas que se creo el usuario n
+        auth::user()->recetas->dd(); */
+
+        $recetas = auth()->user()->recetas;
+
+        return view('recetas.index')->with('recetas', $recetas);
     }
 
     /**
@@ -38,7 +46,7 @@ class RecetaController extends Controller
         return view('recetas.create')->with('categorias', $categorias);
     }
 
-    /**
+    /** 
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -130,3 +138,9 @@ class RecetaController extends Controller
         //
     }
 }
+
+/* 
+Import-Module -Name Terminal-Icons
+Import-Module oh-my-posh
+Set-PoshPrompt -Theme iterm2
+*/
