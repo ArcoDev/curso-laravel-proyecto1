@@ -83,19 +83,30 @@ class RecetaController extends Controller
         $img->save();
         
         /* Insertar un registro en la BD con la clase DB (sin modelo)
-        crear un fasat (similar a las funciones)*/
-        DB::table('recetas')->insert([
+        crear un fasat (similar a las funciones)
+            DB::table('recetas')->insert([
+                'titulo' => $data['titulo'],
+                'preparacion' => $data['preparacion'],
+                'ingredientes' => $data['ingredientes'],
+                'imagen' => $ruta_imagen,
+                //agregando el helper para saber que usuario esta autenticado y asi relacionarlo en la BD
+                'user_id' => Auth::user()->id,
+                'categoria_id' => $data['categoria'],
+            ]);
+        */
+
+        /*Insertar un registro en la BD con la clase DB (con modelo)*/
+        auth()->user()->recetas()->create([
             'titulo' => $data['titulo'],
             'preparacion' => $data['preparacion'],
             'ingredientes' => $data['ingredientes'],
             'imagen' => $ruta_imagen,
-            //agregando el helper para saber que usuario esta autenticado y asi relacionarlo en la BD
-            'user_id' => Auth::user()->id,
             'categoria_id' => $data['categoria'],
         ]);
         
         /* dd es similar al var_dump
-        dd($request->all());*/
+            dd($request->all());
+        */
 
         //Redireccionar
         return redirect()->action('RecetaController@index');
